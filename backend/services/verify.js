@@ -29,15 +29,15 @@ export const verifyPw = (pw, cipher) => {
 };
 
 export const createEmailVerifyToken = () => {
-    return randomBytes(64).toString('hex');
+	return randomBytes(64).toString('hex');
 };
 
 export const sendVerifyEmail = (transporter, target, url) => {
-    return transporter.sendMail({
-        from: '"Simple-Board" <dlcjsdltlqdlf@gmail.com>',
-        to: target,
-        subject: 'Simple-Board 이메일 인증',
-        text: `아래 링크를 클릭해 Simple Board의 회원가입 과정을 마무리해 주시기 바랍니다`,
-        html: `아래 링크를 클릭해 Simple Board의 회원가입 과정을 마무리해 주시기 바랍니다.<br/><a href="${url}">인증하기</a>`
-    });
-}
+	return transporter.sendMail({
+		from: `"Simple-Board" <${process.env.EMAIL_USER}>`,
+		to: target,
+		subject: 'Simple-Board 이메일 인증',
+		text: `아래 링크를 클릭해 Simple Board의 회원가입 과정을 마무리해 주시기 바랍니다`,
+		html: `아래 링크를 클릭해 Simple Board의 회원가입 과정을 마무리해 주시기 바랍니다.<br/><a href="${url}">인증하기</a>`,
+	});
+};
