@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+h1 {
+    margin: 0;
+}
+.header {
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: .2em;
+}
+.article-item {
+    padding: 0.3em;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: #e0e0e0 solid 1px;
+}
+.article-item > div {
+    font-size: 0.8em;
+    color: #000000;
+}
+.article-title {
+    flex-basis: 100%;
+    margin: 0.2em 0;
+}
+.article-info {
+    margin-left: auto;
+}
