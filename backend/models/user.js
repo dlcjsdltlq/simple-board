@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
 		expires: '10m',
 		default: undefined,
 	},
+    subscription: {
+        type: Object,
+        default: {}
+    }
 });
 
 const UserModel = mongoose.model('UserModel', userSchema);
@@ -29,6 +33,7 @@ export const addUserData = (userId, userName, userEmail, userPw, emailVerifyToke
 		userPw,
 		emailVerifyToken,
 		verifyExpires: new Date(),
+        subscription: ''
 	});
 	return userInstance.save();
 };
@@ -56,6 +61,10 @@ export const checkEmailToken = async (emailVerifyToken) => {
 	return count > 0;
 };
 
-export const acceptVerify = async (emailVerifyToken) => {
+export const acceptVerify = (emailVerifyToken) => {
 	return UserModel.findOneAndUpdate({ emailVerifyToken }, { emailVerifyToken: '', verifyExpires: undefined });
+};
+
+export const subscribePush = (userId, subscription) => {
+    return UserModel.findOneAndUpdate({ userId }, { subscription });
 };

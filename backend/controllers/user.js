@@ -64,9 +64,20 @@ export const emailVerify = async (req, res, next) => {
     try {
         const { token } = req.body;
         if (!(await model.checkEmailToken(token))) throw error.ERR_TOKEN_INVALID;
-        model.acceptVerify(token);
+        await model.acceptVerify(token);
         res.json({ status: true, data: 'ACCOUNT_ACCEPTED' });
     } catch (e) {
         next(e);
     }
 };
+
+export const subscribePush = async (req, res, next) => {
+    try {
+        const subscription = req.body;
+        const userId = req.userId;
+        await model.subscribePush(userId, subscription);
+        res.json({ status: true, data: 'SUBSCRIPTION_ACCEPTED' });
+    } catch (e) {
+        next(e);
+    }
+}

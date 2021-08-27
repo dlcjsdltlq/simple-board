@@ -10,5 +10,6 @@ router.post('/login', userController.login, authMiddleware.issueToken);
 router.post('/logout', userController.logout);
 router.post('/silent-refresh', authMiddleware.issueAccessToken);
 router.post('/email-verify', userController.emailVerify);
+router.post('/subscribe-push', authMiddleware.verifyToken, userController.subscribePush);
 
 export default router;
