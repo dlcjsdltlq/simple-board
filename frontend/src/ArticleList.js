@@ -10,7 +10,7 @@ import { errorHandler } from './services/error-handler';
 function ArticleList() {
 	const [articleList, setArticleList] = useState([]);
 	useEffect(() => {
-		axios.get(`http://localhost:3001/api/article/getlist?start=1&end=100`).then((response) => {
+		axios.get(`${process.env.REACT_APP_REQUEST_URL}/api/article/getlist?start=1&end=100`).then((response) => {
             errorHandler(response.data.data);
 			setArticleList(response.data.data);
 		});

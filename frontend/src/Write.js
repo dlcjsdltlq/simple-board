@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js';
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
 import { errorHandler } from './services/error-handler';
@@ -41,14 +44,15 @@ function Write() {
 	};
 
 	const onClick = async () => {
+        if (!data.subject.trim() || !data.text.trim()) return alert('제목이나 내용을 입력해 주세요.');
 		if (state) {
-			const response = await axios.post('http://localhost:3001/api/article/modify', {
+			const response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/article/modify`, {
 				...data,
 				articleId: state.article.articleId,
 			});
             errorHandler(response.data.data);
 		} else {
-			const response = await axios.post('http://localhost:3001/api/article/write', data);
+			const response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/article/write`, data);
             errorHandler(response.data.data);
 		}
 		history.push({
@@ -59,7 +63,7 @@ function Write() {
 	const uploadImage = async (blob) => {
 		const formData = new FormData();
 		formData.append('file', blob);
-		const response = await axios.post('http://localhost:3001/api/file/upload', formData, {
+		const response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/file/upload`, formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',
 			},
@@ -69,7 +73,7 @@ function Write() {
 			console.log(response.data.data);
 			return false;
 		}
-		return 'http://localhost:3001/api/file/' + response.data.data;
+		return `${process.env.REACT_APP_REQUEST_URL}/api/file/` + response.data.data;
 	};
 
 	return (
@@ -92,6 +96,7 @@ function Write() {
 							return false;
 						},
 					}}
+                    plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
 				/>
 			</div>
 			<div className="block">

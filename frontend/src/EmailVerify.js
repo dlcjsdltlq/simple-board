@@ -10,7 +10,7 @@ function EmailVerify() {
     const { token } = useParams();
 
     useEffect(() => {
-        axios.post('http://localhost:3001/api/user/email-verify', { token }).then(response => {
+        axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/user/email-verify`, { token }).then(response => {
             errorHandler(response.data.data);
             if (response.data.data === 'ACCOUNT_ACCEPTED') setVerifyState('success');
         }).catch(() => setVerifyState('error'));

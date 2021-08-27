@@ -8,6 +8,8 @@
 		"@testing-library/jest-dom": "^5.14.1",
 		"@testing-library/react": "^11.2.7",
 		"@testing-library/user-event": "^12.8.3",
+		"@toast-ui/editor-plugin-code-syntax-highlight": "^3.0.0",
+		"@toast-ui/editor-plugin-color-syntax": "^3.0.1",
 		"@toast-ui/react-editor": "^3.0.3",
 		"axios": "^0.21.1",
 		"bulma": "^0.9.3",
@@ -19,6 +21,7 @@
 		"mobx-react": "^7.2.0",
 		"mobx-react-form": "^3.1.0",
 		"moment": "^2.29.1",
+		"prismjs": "^1.24.1",
 		"react": "^17.0.2",
 		"react-app-rewired": "^2.1.8",
 		"react-dom": "^17.0.2",
@@ -29,7 +32,7 @@
 		"web-vitals": "^1.1.2"
 	},
 	"scripts": {
-		"start": "react-app-rewired start",
+		"start": "set \"HTTPS=true\" && set \"HOST=192.168.35.213\" && set \"SSL_CRT_FILE=../.cert/cert.pem\" && set \"SSL_KEY_FILE=../.cert/key.pem\" && react-scripts start",
 		"build": "react-app-rewired build",
 		"test": "react-app-rewired test",
 		"eject": "react-scripts eject"

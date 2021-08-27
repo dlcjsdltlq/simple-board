@@ -25,7 +25,7 @@ function SignUp() {
 	};
 
 	const onSubmit = async () => {
-		let response = await axios.post('http://localhost:3001/api/user/check-exists', {
+		let response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/user/check-exists`, {
 			userId: input.userId,
 			userEmail: input.userEmail,
 		});
@@ -37,7 +37,7 @@ function SignUp() {
 			alert(error[exists].msgKor);
 		}
 
-		response = await axios.post('http://localhost:3001/api/user/signup', input);
+		response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/user/signup`, input);
 
         errorHandler(response.data.data);
 

@@ -9,7 +9,7 @@ function NavBar({ setUserId, setIsLogined, isLogined }) {
         setIsLogined(false);
         setUserId('');
         setClicked('');
-        localStorage.setItem('isLogined', '');
+        localStorage.clear();
     };
 
     const onLinkClicked = () => setClicked(false);

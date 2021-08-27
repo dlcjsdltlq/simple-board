@@ -11,16 +11,14 @@ import SignUp from './SignUp';
 import EmailVerify from './EmailVerify';
 import axios from 'axios';
 import { errorHandler } from './services/error-handler';
+import { runPushWorker } from './services/push';
 
 axios.interceptors.response.use(
 	(response) => {
-		// Do something with response data
 		errorHandler(response.data.data);
 		return response;
 	},
 	(error) => {
-		// Do something with response error
-		//console.log(error.response.data);
 		errorHandler(error.response.data.data);
 		return error.response.data;
 	}
@@ -34,6 +32,8 @@ function App({ boardStore }) {
 				if (!result) return localStorage.setItem('isLogined', '');
 				boardStore.setIsLogined(true);
 				boardStore.setUserId(localStorage.getItem('userId'));
+                //alert(localStorage.getItem('isSubscriptionSent'))
+                if (!localStorage.getItem('isSubscriptionSent')) await runPushWorker();
 			}
 		})();
 	}, [boardStore]);

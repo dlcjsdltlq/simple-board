@@ -12,7 +12,7 @@ function Login({ setUserId, setIsLogined, isLogined }) {
 	};
 
 	const onClick = async () => {
-		const response = await axios.post('http://localhost:3001/api/user/login', formData, {
+		const response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/user/login`, formData, {
             withCredentials: true
         });
         errorHandler(response.data.data);

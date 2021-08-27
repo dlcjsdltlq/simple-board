@@ -19,7 +19,7 @@ function CommentWrite({ articleId, depth, targetIndex, getComment, setClickedCom
 			depth,
 			targetIndex,
 		};
-		const response = await axios.post('http://localhost:3001/api/comment/write', formData);
+		const response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/comment/write`, formData);
         errorHandler(response.data.data);
 		getComment();
 		setComment('');
@@ -47,7 +47,7 @@ function Comment({ userId, articleId }) {
 	const getComment = () => {
 		if (!articleId) return;
 		axios
-			.post('http://localhost:3001/api/comment/view', {
+			.post(`${process.env.REACT_APP_REQUEST_URL}/api/comment/view`, {
 				articleId,
 				start: 0,
 				end: 100,
@@ -63,7 +63,7 @@ function Comment({ userId, articleId }) {
 
 	const onDeleteClick = async (e) => {
         if (!window.confirm('댓글을 삭제하시겠습니까?')) return;
-		const response = await axios.post('http://localhost:3001/api/comment/delete', {
+		const response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/comment/delete`, {
 			articleId,
 			commentIndex: e.target.name,
 		});

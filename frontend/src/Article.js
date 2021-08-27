@@ -13,7 +13,7 @@ function Article({ userId }) {
 	const { articleId } = useParams();
 	const history = useHistory();
 	useEffect(() => {
-		axios.get(`http://localhost:3001/api/article/view/${articleId}`).then((response) => {
+		axios.get(`${process.env.REACT_APP_REQUEST_URL}/api/article/view/${articleId}`).then((response) => {
 			const article = response.data.data;
             errorHandler(response.data.data);
 			if (response.status === 404) history.goBack();
@@ -24,7 +24,7 @@ function Article({ userId }) {
 	const onDeleteClick = async () => {
 		if (userId !== article.userId) return alert('작성자가 아닙니다.');
 		if (!window.confirm('글을 삭제하시겠습니까?')) return;
-		const response = await axios.post(`http://localhost:3001/api/article/delete`, {
+		const response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/article/delete`, {
 			articleId,
 		});
         errorHandler(response.data.data);
@@ -38,7 +38,7 @@ function Article({ userId }) {
 			articleId,
 			voteType: e.target.name
 		};
-		const response = await axios.post('http://localhost:3001/api/article/vote', formData);
+		const response = await axios.post(`${process.env.REACT_APP_REQUEST_URL}/api/article/vote`, formData);
         errorHandler(response.data.data);
 		setArticle({
 			...article,
